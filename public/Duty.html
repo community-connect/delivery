@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Product Page - Admin HTML Template</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+
+    <!--Mapbox-->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+    
+
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <!--
+	Product Admin CSS Template
+	https://templatemo.com/tm-524-product-admin
+	-->
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        .marker {
+                background-image: url('img/shop.png');
+                background-size: cover;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+                }
+                .mapboxgl-popup {
+                max-width: 200px;
+                }
+
+                .mapboxgl-popup-content {
+                text-align: center;
+                font-family: 'Open Sans', sans-serif;
+                }
+
+                /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+        </style>
+  </head>
+
+  <body id="reportsPage">
+    <nav class="navbar navbar-expand-xl">
+      <div class="container h-100">
+        <a class="navbar-brand" href="index.html">
+          <h1 class="tm-site-title mb-0">Community Connect</h1>
+        </a>
+        <button
+          class="navbar-toggler ml-auto mr-0"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars tm-nav-icon"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto h-100">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <i class="far fa-file-alt"></i>
+                <span> Reports <i class="fas fa-angle-down"></i> </span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Daily Report</a>
+                <a class="dropdown-item" href="#">Weekly Report</a>
+                <a class="dropdown-item" href="#">Yearly Report</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="items.html">
+                <i class="fas fa-shopping-cart"></i> Duty
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="accounts.html">
+                <i class="far fa-user"></i> Accounts
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fas fa-cog"></i>
+                <span> Settings <i class="fas fa-angle-down"></i> </span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">Billing</a>
+                <a class="dropdown-item" href="#">Customize</a>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link d-block" href="login.html">
+                Admin, <b>Logout</b>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container mt-5">
+      <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+          <div class="tm-bg-primary-dark tm-block tm-block-products">
+            <div id="map"></div>
+            <!-- table container -->
+            
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
+          <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+            <h2 class="tm-block-title">Shop Names</h2>
+            <div class="tm-product-table-container">
+              <table class="table tm-table-small tm-product-table" id="order-shop-table" >
+                <tbody id="dytav">
+                  <tr>
+                    <td class="tm-product-name"></td>
+                    <td class="text-center">
+                      <a href="items.html" class="tm-product-delete-link">
+                        <img src="img/check.png">
+                      </a>
+                    </td>
+                  </tr>                 
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- table container -->
+           
+            <button class="btn btn-primary btn-block text-uppercase mb-3">
+              <a href="Duty2.html" class="btn btn-primary btn-block text-uppercase mb-3">
+              Collected All
+            </button>
+          </a>
+          </div>
+        </div>
+      </div>
+      <!-- Notifications can add here -->
+    </div>
+    <footer class="tm-footer row tm-mt-small">
+      <div class="col-12 font-weight-light">
+      </div>
+    </footer>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script>
+      $(function() {
+        $(".tm-product-name").on("click", function() {
+          window.location.href = "items.html";
+        });
+      });
+     
+    </script>
+    <script>
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWd3YWxsZXQiLCJhIjoiY2tmZXU2cDhnMDQyNTJybGRoazh6Z2RrcCJ9.74DnMguGVpu73WJxcPAZMw';
+    const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [77.604164,  12.934239], // starting position [lng, lat]
+    zoom: 15 // starting zoom
+    });
+    // add markers to map
+
+
+//   $(document).on('click', '.mapboxgl-marker', function() {
+//     map.flyTo({
+// center: feature.geometry.coordinates,
+// essential: true // this animation is considered essential with respect to prefers-reduced-motion
+// });
+// });
+
+
+    </script>
+    
+
+    <script>
+      // Example POST method implementation:
+async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    // mode: 'cors', // no-cors, *cors, same-origin
+    // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    // credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      // 2'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    // redirect: 'follow', // manual, *follow, error
+    // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    // 1// body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+let tableRef = document.getElementById("order-shop-table");
+  var divs = document.getElementsByTagName("tr");
+  var i=0;
+  var img_rand=0;
+  const randim=["img/waiting.png","img/check.png"];
+postData('http://127.0.0.1:8000/user-list', null)
+  .then(data => {
+    console.log(data); // JSON data parsed by `data.json()` call
+    for(var or of data){
+      let newRow = tableRef.insertRow(-1);
+      img_rand=Math.floor(Math.random() * 2);
+      
+      divs[i].innerHTML = "<tr><td class='tm-product-name'>"+or.ShopName+"</td><td class='text-center'><a href='' id='mylink' class='tm-product-delete-link' id='img-click'><img src="+randim[img_rand]+"></a></td>";
+
+      i++;
+      const el = document.createElement('div');
+      el.className = 'marker';
+      //console.log(or.Lat);
+      var Lat=parseFloat(or.Lat);
+      console.log(Lat);
+      var Lng=parseFloat(or.Lng);
+      console.log(Lng);
+      const coordinates={lon: Lat, lat: Lng};
+      //const ll = new mapboxgl.LngLat(-123.9749, 40.7736);
+     
+      // make a marker for each feature and add to the map
+      new mapboxgl.Marker(el)
+      .setLngLat(coordinates)
+      .setPopup(
+        new mapboxgl.Popup({ offset: 25 }) // add popups
+          .setHTML(
+            `<h3><a  href="javascript:localStorage.setItem('store','`+or.ShopName+`');window.open('items.html','_self');" id="marker-click">${or.ShopName}
+              </h3><p>Store Information</p>`
+          )
+      )
+      .addTo(map);
+      console.log(or.ShopName);
+    }
+    
+    //console.log(data[0].ShopName);
+  });
+  
+
+      //app.get('/user-list');
+    </script>
+
+  </body>
+</html>
